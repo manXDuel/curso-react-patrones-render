@@ -41,9 +41,14 @@ function App() {
         error={error}
         loading={loading}
         searchedTodos={searchedTodos}
+        totalTodos={totalTodos}
+        searchText={searchValue}
         onError={()=> <TodosError />}
         onLoading={()=> <TodosLoading />}
-        onEmpty={()=> <EmptyTodos />}
+        onEmptyTodos={()=> <EmptyTodos />}
+        onEmptySearch={
+          (searchText) => <p>No hay resultados para {searchText}</p>
+        }
         render={todo => 
           <TodoItem
             key={todo.text}
