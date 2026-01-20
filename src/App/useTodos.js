@@ -7,7 +7,7 @@ function useTodos() {
     item: todos,
     saveItem: saveTodos,
     loading,
-    error, setError
+    error
   } = useLocalStorage('TODOS_V1', []);
   const [searchValue, setSearchValue] = React.useState('');
   const [openModal, setOpenModal] = React.useState(false);
