@@ -7,7 +7,7 @@ function useTodos() {
     item: todos,
     saveItem: saveTodos,
     loading,
-    error,
+    error, setError
   } = useLocalStorage('TODOS_V1', []);
   const [searchValue, setSearchValue] = React.useState('');
   const [openModal, setOpenModal] = React.useState(false);
@@ -17,7 +17,7 @@ function useTodos() {
 
   let searchedTodos = [];
 
-  if (!searchValue.length >= 1) {
+  if (!searchValue.length) {
     searchedTodos = todos;
   } else {
     searchedTodos = todos.filter(todo => {
@@ -28,16 +28,22 @@ function useTodos() {
   }
 
   const addTodo = (text) => {
+    if (!text || text.trim() === '') {
+      return; // No agregar TODOs vacíos
+    }
+
     const newTodos = [...todos];
     newTodos.push({
       completed: false,
-      text,
+      text: text.trim(), // Guardar sin espacios al inicio/final
     });
     saveTodos(newTodos);
   };
 
   const completeTodo = (text) => {
     const todoIndex = todos.findIndex(todo => todo.text === text);
+    if(todoIndex === -1) return; //Revisa que el indice sea válido
+
     const newTodos = [...todos];
     newTodos[todoIndex].completed = true;
     saveTodos(newTodos);
