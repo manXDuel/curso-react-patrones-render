@@ -9,22 +9,23 @@ function App(props) {
   );
 }
 
-function withAlgo(WrappedComponent){ //Función de orden superior
-  return function ComponenteDeVerdad(props){
-    //La función que retorna siempre debe ser un componente de React
-    return (
-      <React.Fragment>
-        <WrappedComponent {...props}/> 
-        <p>Acompañando al Wrapped Component</p>
-      </React.Fragment>
-    );
+function withSaludo(WrappedComponent){ //Función de orden superior
+  return function WrappedComponentWithSaludo(saludo) {
+    return function componenteDeVerdad(props) {
+      return (
+        <React.Fragment>
+          <WrappedComponent {...props} saludo={saludo}/>
+          <p>Acompañando al WrappedComponent</p>
+        </React.Fragment>
+      );
+    }
   }
 }
 
-const AppWithAlgo = withAlgo(App);
+const AppWithAlgo = withSaludo(App)('Wenas');
 
 
 ReactDOM.render(
-  <AppWithAlgo saludo="Hey" nombre="Juan"/>,
+  <AppWithAlgo nombre="Juan"/>,
   document.getElementById('root')
 );
