@@ -9,8 +9,8 @@ function App(props) {
   );
 }
 
-function withSaludo(WrappedComponent){ //Función de orden superior
-  return function WrappedComponentWithSaludo(saludo) {
+function withSaludo(saludo){ //Función de orden superior
+  return function WrappedComponentWithSaludo(WrappedComponent) {
     return function componenteDeVerdad(props) {
       return (
         <React.Fragment>
@@ -22,7 +22,7 @@ function withSaludo(WrappedComponent){ //Función de orden superior
   }
 }
 
-const AppWithAlgo = withSaludo(App)('Wenas');
+const AppWithAlgo = withSaludo('Wenas')(App);
 
 
 ReactDOM.render(
